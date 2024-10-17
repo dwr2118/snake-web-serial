@@ -1,13 +1,14 @@
 var s; // snake object 
 var scl = 20; // box within the grid 
 var food;
+var frameRate = 10;
 
 function setup() {
   createCanvas(300, 300);
   s = new Snake();
   
   // lowering framerate to be part of the aesthetic
-  frameRate(10);
+  frameRate(frameRate); 
   
   pickLocation();
 }
@@ -26,6 +27,11 @@ function keyPressed() {
     s.dir(-1, 0);
   }
   
+}
+
+function changeDifficulty(amount){
+  console.log("changing difficulty by: ", amount);
+  frameRate += amount;
 }
 
 // only want food to be a specific position within the board 

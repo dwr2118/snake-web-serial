@@ -44,7 +44,6 @@ async function handleSerial() {
       let x = xyz[0];
       let y = xyz[1];
       let z = xyz[2];
-      
 
       // right: (4095, 1770)
       // left: (0, 1770)
@@ -65,24 +64,22 @@ async function handleSerial() {
         keyCode = LEFT_ARROW;
         keyPressed();
       }
+    } else{
+
+      // check if in this line there was a button serial input communicated
+      if (trimmed_value[0] == "R" || trimmed_value[0] == "L"){
+
+        // raise the difficulty if Right button is pressed 
+        if (trimmed_value == "R"){
+          console.log("Right button pressed");
+          changeDifficulty(5);
+        } else if(trimmed_value == "L"){
+          console.log("Left button pressed");
+          changeDifficulty(-5); // lower difficulty if Left button is pressed 
+        }
+      }
     }
 
-    // Manually set the keyCode and call keyPressed directly
-    // if (trimmed_value == "up") {
-    //   keyCode = UP_ARROW;
-    //   keyPressed();
-    // } else if (trimmed_value == "down") {
-    //   keyCode = DOWN_ARROW;
-    //   keyPressed();
-    // } else if (trimmed_value == "R") {
-    //   console.log("Right arrow pressed");
-    //   keyCode = RIGHT_ARROW;
-    //   keyPressed();
-    // } else if (trimmed_value == "L") {
-    //   console.log("Left arrow pressed");
-    //   keyCode = LEFT_ARROW;
-    //   keyPressed();
-    // }
   }
 }
 
