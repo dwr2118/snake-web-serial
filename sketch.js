@@ -1,14 +1,16 @@
 var s; // snake object 
 var scl = 20; // box within the grid 
 var food;
-var frameRate = 10;
+var frameRateAmount = 10;
 
 function setup() {
   createCanvas(300, 300);
   s = new Snake();
   
+  // TODO: dynamically change frame rate after setup given 
+  // changes to the frameRateAmount variable 
   // lowering framerate to be part of the aesthetic
-  frameRate(frameRate); 
+  frameRate(frameRateAmount); 
   
   pickLocation();
 }
@@ -31,7 +33,7 @@ function keyPressed() {
 
 function changeDifficulty(amount){
   console.log("changing difficulty by: ", amount);
-  frameRate += amount;
+  frameRateAmount += amount;
 }
 
 // only want food to be a specific position within the board 
@@ -54,6 +56,15 @@ function draw() {
     pickLocation();
   } 
   
+  // TODO: change design of food (maybe spinning dragon ball)
   fill(255, 0, 100);
   rect(food.x, food.y, scl, scl); // position and size 
+
+  // Update the player's score w/r/t to the snake's tail length
+  fill(255);
+  textSize(20);
+  textAlign(LEFT, TOP);
+  
+  // (0,0) is top left corner and everything from there is positive 
+  text("Score: " + s.tail.length, 100, 280); 
 }

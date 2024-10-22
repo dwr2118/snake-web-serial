@@ -17,7 +17,8 @@ function Snake(){
       var d = dist(this.x, this.y, pos.x, pos.y);
       if (d < 1){
         this.total++; // increase the # of rectangles 
-        return true;
+        // TODO: maybe some sound effect once they eat the food or dragonball
+        return true; 
       } else{
         return false;
       }
@@ -57,8 +58,22 @@ function Snake(){
       this.y = this.y + this.yspeed*scl;
       
       // lock the rectangle to be within the dimensions of the canvas 
-      this.x = constrain(this.x, 0, width-scl);
-      this.y = constrain(this.y, 0, height-scl);
+      // this.x = constrain(this.x, 0, width-scl);
+      // this.y = constrain(this.y, 0, height-scl);
+
+      // allow for the teleportation of the snake's head to the opposing side
+      // if it reaches the edge of the canvas 
+      if (this.x >= width) {
+        this.x = 0;  // Wrap to the left if it goes past the right edge
+      } else if (this.x < 0) {
+        this.x = width - scl;  // Wrap to the right if it goes past the left edge
+      }
+    
+      if (this.y >= height) {
+        this.y = 0;  // Wrap to the top if it goes past the bottom edge
+      } else if (this.y < 0) {
+        this.y = height - scl;  // Wrap to the bottom if it goes past the top edge
+      }
       
     }
     
@@ -70,6 +85,8 @@ function Snake(){
           rect(this.tail[i].x, this.tail[i].y, scl, scl);
       }
       
+      // TODO: change the design of the snake to be like a dragon 
+      // Or maybe flying nimbus 
       fill(255);
       rect(this.x, this.y, scl, scl);
     }

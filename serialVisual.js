@@ -39,20 +39,31 @@ async function handleSerial() {
     let trimmed_value = value.trim(); 
 
     // grab the xyz positions from the value communicated to us
-    let xyz = int(split(value, ','));
-    if(xyz.length == 3){
-      let x = xyz[0];
-      let y = xyz[1];
-      let z = xyz[2];
+    let xyz = split(value, ',');
+
+    if(xyz.length > 2){
+
+      let x = parseInt(xyz[0]);
+      let y = parseInt(xyz[1]);
+      let z = parseInt(xyz[2]);
+      let buttonPressed = xyz[3];
+
+      if (buttonPressed){
+        buttonPressed = buttonPressed.trim();
+      }
+
+      console.log(trimmed_value, x, y, z, buttonPressed); 
 
       // right: (4095, 1770)
       // left: (0, 1770)
       // up: (1770, 0)
       // down: (1770, 4095)
       if (x > 1770 && y < 100) {
+        console.log("Up arrow pressed");
         keyCode = UP_ARROW;
         keyPressed();
       } else if (x > 1770 && y > 4000) {
+        console.log("Down arrow pressed");
         keyCode = DOWN_ARROW;
         keyPressed();
       } else if (x > 4000 && y > 1770) {
@@ -63,21 +74,18 @@ async function handleSerial() {
         console.log("Left arrow pressed");
         keyCode = LEFT_ARROW;
         keyPressed();
-      }
-    } else{
+      } 
 
-      // check if in this line there was a button serial input communicated
-      if (trimmed_value[0] == "R" || trimmed_value[0] == "L"){
-
+      if (buttonPressed == "R"){
+        console.log("Right button pressed");
         // raise the difficulty if Right button is pressed 
-        if (trimmed_value == "R"){
-          console.log("Right button pressed");
-          changeDifficulty(5);
-        } else if(trimmed_value == "L"){
-          console.log("Left button pressed");
-          changeDifficulty(-5); // lower difficulty if Left button is pressed 
-        }
+        changeDifficulty(5);
+      } else if(buttonPressed == "L"){
+        console.log("Left button pressed");
+        // lower difficulty if Left button is pressed 
+        changeDifficulty(-5); 
       }
+
     }
 
   }
