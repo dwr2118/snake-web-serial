@@ -46,13 +46,20 @@ async function handleSerial() {
       let x = parseInt(xyz[0]);
       let y = parseInt(xyz[1]);
       let z = parseInt(xyz[2]);
-      let buttonPressed = xyz[3];
+      // let buttonPressed = xyz[3];
+      let potValue = xyz[3];
+      let selectPressed = xyz[4];
 
-      if (buttonPressed){
-        buttonPressed = buttonPressed.trim();
+      if (selectPressed){
+        selectPressed = selectPressed.trim();
       }
 
-      console.log(trimmed_value, x, y, z, buttonPressed); 
+      if (null in xyz || NaN in xyz){
+        console.log("null value detected");
+        continue;
+      }
+      
+      console.log(trimmed_value, x, y, z, potValue, selectPressed); 
 
       // right: (4095, 1770)
       // left: (0, 1770)
@@ -75,16 +82,25 @@ async function handleSerial() {
         keyCode = LEFT_ARROW;
         keyPressed();
       } 
-
-      if (buttonPressed == "R"){
-        console.log("Right button pressed");
-        // raise the difficulty if Right button is pressed 
-        changeDifficulty(5);
-      } else if(buttonPressed == "L"){
-        console.log("Left button pressed");
-        // lower difficulty if Left button is pressed 
-        changeDifficulty(-5); 
+      
+      if (potValue){
+        changeDifficulty(potValue);
       }
+
+      if (selectPressed == "SELECT" && xyz.length > 4){
+        console.log("Select Button pressed");
+        changeGameState();
+      } 
+
+      // if (buttonPressed == "R"){
+      //   console.log("Right button pressed");
+      //   // raise the difficulty if Right button is pressed 
+      //   changeDifficulty(5);
+      // } else if(buttonPressed == "L"){
+      //   console.log("Left button pressed");
+      //   // lower difficulty if Left button is pressed 
+      //   changeDifficulty(-5); 
+      // }
 
     }
 

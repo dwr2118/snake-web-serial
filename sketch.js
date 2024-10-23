@@ -2,6 +2,7 @@ var s; // snake object
 var scl = 20; // box within the grid 
 var food;
 var frameRateAmount = 10;
+var gameState = 1;
 
 function setup() {
   createCanvas(300, 300);
@@ -11,6 +12,7 @@ function setup() {
   // changes to the frameRateAmount variable 
   // lowering framerate to be part of the aesthetic
   frameRate(frameRateAmount); 
+  gameState = 1;
   
   pickLocation();
 }
@@ -32,8 +34,29 @@ function keyPressed() {
 }
 
 function changeDifficulty(amount){
+  amount = parseInt(amount); // extract the integer
+  amount = 10 + 100*(amount/4095); // normalize to pot max value 
+
   console.log("changing difficulty by: ", amount);
-  frameRateAmount += amount;
+  frameRateAmount = amount;
+
+  if (gameState == 1){
+    frameRate(frameRateAmount);
+  }
+}
+
+function changeGameState(){
+
+  if (gameState == 1){
+    gameState = 0;
+    frameRate(0);
+  } else {
+    gameState = 1;
+    frameRate(10);
+  }
+  
+  console.log("changing game state to: ", gameState);
+
 }
 
 // only want food to be a specific position within the board 
@@ -50,6 +73,7 @@ function draw() {
   s.death(); // check if the snake has bit itself before updating its position
   s.update();
   s.show();
+  frameRate(frameRateAmount);
   
   // you want the snake to eat the food 
   if(s.eat(food)){
@@ -66,5 +90,5 @@ function draw() {
   textAlign(LEFT, TOP);
   
   // (0,0) is top left corner and everything from there is positive 
-  text("Score: " + s.tail.length, 100, 280); 
+  text("Score: " + s.tail.length * 5, 100, 280); 
 }
