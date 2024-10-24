@@ -32,10 +32,10 @@ async function handleSerial() {
       reader.releaseLock();
       break;
     }
-    if (value) {
-      document.getElementById("content").style.visibility = "visible";
-    }
-    document.getElementById("value").innerHTML = value;
+    // if (value) {
+    //   document.getElementById("section").style.visibility = "hidden";
+    // }
+    // document.getElementById("value").innerHTML = value;
     let trimmed_value = value.trim(); 
 
     // grab the xyz positions from the value communicated to us
@@ -65,23 +65,26 @@ async function handleSerial() {
       // left: (0, 1770)
       // up: (1770, 0)
       // down: (1770, 4095)
-      if (x > 1770 && y < 100) {
-        console.log("Up arrow pressed");
-        keyCode = UP_ARROW;
-        keyPressed();
-      } else if (x > 1770 && y > 4000) {
-        console.log("Down arrow pressed");
-        keyCode = DOWN_ARROW;
-        keyPressed();
-      } else if (x > 4000 && y > 1770) {
-        console.log("Right arrow pressed");
-        keyCode = RIGHT_ARROW;
-        keyPressed();
-      } else if (x < 100 && y > 1770) {
-        console.log("Left arrow pressed");
-        keyCode = LEFT_ARROW;
-        keyPressed();
-      } 
+      if (xyz.length > 3){
+        if (x > 1770 && y < 100) {
+          console.log("Up arrow pressed");
+          keyCode = UP_ARROW;
+          keyPressed();
+        } else if (x > 1770 && y > 3200) {
+          console.log("Down arrow pressed");
+          keyCode = DOWN_ARROW;
+          keyPressed();
+        } else if (x > 4000 && y > 1770) {
+          console.log("Right arrow pressed");
+          keyCode = RIGHT_ARROW;
+          keyPressed();
+        } else if (x < 300 && y > 1760) {
+          console.log("Left arrow pressed");
+          keyCode = LEFT_ARROW;
+          keyPressed();
+        }
+      }
+
       
       if (potValue){
         changeDifficulty(potValue);
@@ -121,5 +124,5 @@ const serialDisconnect = async() => {
   writer.close();
   await writableStreamClosed;
   await port.close();
-  document.getElementById("content").style.visibility = "hidden";
+  // document.getElementById("content").style.visibility = "hidden";
 }
