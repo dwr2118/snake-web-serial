@@ -19,9 +19,6 @@ function setup() {
   createCanvas(500, 500);
   s = new Snake();
   
-  // TODO: dynamically change frame rate after setup given 
-  // changes to the frameRateAmount variable 
-  // lowering framerate to be part of the aesthetic
   frameRate(frameRateAmount); 
   gameState = 1;
   
