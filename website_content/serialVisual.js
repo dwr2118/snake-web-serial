@@ -32,6 +32,11 @@ async function handleSerial() {
       reader.releaseLock();
       break;
     }
+
+    if (value) {
+      document.getElementById("connectSection").style.visibility = "hidden";
+      document.getElementById("disconnectSection").style.visibility = "visible";
+    }
     let trimmed_value = value.trim(); 
 
     // grab the xyz positions, pot value & button state
@@ -116,4 +121,6 @@ const serialDisconnect = async() => {
   writer.close();
   await writableStreamClosed;
   await port.close();
+  document.getElementById("disconnectSection").style.visibility = "hidden";
+  document.getElementById("connectSection").style.visibility = "visible";
 }
