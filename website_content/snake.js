@@ -17,7 +17,6 @@ function Snake(){
       var d = dist(this.x, this.y, pos.x, pos.y);
       if (d < 1){
         this.total++; // increase the # of rectangles 
-        // TODO: maybe some sound effect once they eat the food or dragonball
         return true; 
       } else{
         return false;
@@ -45,6 +44,7 @@ function Snake(){
       
       // only shift if we haven't eaten any new food 
       if (this.total === this.tail.length) {
+
         // shifting everything down and leaving space for the new head position
         for (var i = 0; i < this.tail.length-1; i++){
           this.tail[i] = this.tail[i+1]; 
@@ -59,10 +59,6 @@ function Snake(){
            
       this.x = this.x + this.xspeed*scl;
       this.y = this.y + this.yspeed*scl;
-      
-      // lock the rectangle to be within the dimensions of the canvas 
-      // this.x = constrain(this.x, 0, width-scl);
-      // this.y = constrain(this.y, 0, height-scl);
 
       // allow for the teleportation of the snake's head to the opposing side
       // if it reaches the edge of the canvas 
@@ -79,20 +75,7 @@ function Snake(){
       }
       
     }
-    
-    // // create the actual snake object as a rectangle
-    // this.show = function(){
-    //   fill(0, 128, 0);
-      
-    //   for (var i = 0; i < this.tail.length; i++){
-    //       rect(this.tail[i].x, this.tail[i].y, scl, scl);
-    //   }
-      
-    //   // TODO: change the design of the snake to be like a dragon 
-    //   // Or maybe flying nimbus 
-    //   fill(0, 128, 0);
-    //   rect(this.x, this.y, scl, scl);
-    // }
+  
 
     this.show = function() {
       // Draw Shenron's body (snake)
@@ -100,11 +83,6 @@ function Snake(){
       
       // Loop over the tail to draw Shenron's segments
       for (var i = 0; i < this.tail.length; i++) {
-        // rect(this.tail[i].x, this.tail[i].y, scl, scl); // Use rectangles for segments
-        // // Optionally add detail like scales
-        // fill(255, 0, 0); // White or any other color for scales
-        // ellipse(this.tail[i].x + scl / 2, this.tail[i].y + scl / 2, scl / 2, scl / 2); // Add some circular "scales"
-        // fill(0, 255, 0); // Reset to green after drawing scales
 
         // Draw the top half with light green color
         fill(0, 200, 0) // Light green color
@@ -127,13 +105,10 @@ function Snake(){
       rect(this.x, this.y, scl, scl); // Shenron's head base
     
       // Optionally, add eyes or horns to Shenron's head
-      fill(255, 0, 0); // White for the eyes
+      fill(255, 0, 0); // Red for the eyes 
       ellipse(this.x + scl / 3, this.y + scl / 3, scl / 3, scl / 3); // Left eye
       ellipse(this.x + 2 * scl / 3, this.y + scl / 3, scl / 3, scl / 3); // Right eye
       
-      // fill(255, 0, 0); // red for the pupils
-      // ellipse(this.x + scl / 3, this.y + scl / 3, scl / 6, scl / 6); // Left pupil
-      // ellipse(this.x + 2 * scl / 3, this.y + scl / 3, scl / 6, scl / 6); // Right pupil
     
       // Add horns or fangs
       stroke(222, 184, 135); // White for the horns

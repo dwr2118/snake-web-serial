@@ -1,5 +1,5 @@
 /*
-  Shenron Snake Serial
+  Shenron the Snake Serial
   Writes the x and y position of the joystick connected to pins 39 and 32; respectively.
   The z variable records if the internal joystick's button has been pushed down. 
   We also record if a button and potentiometer (pot) connected to the ESP32 board have been utilized.
@@ -50,8 +50,6 @@ void loop() {
 
   // print out when the select button is pressed and give the bounce back some time to settle 
   if (selectButtonPressed){
-
-    // 
     Serial.println(",SELECT");
     selectButtonPressed = false;
   }

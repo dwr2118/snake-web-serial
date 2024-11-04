@@ -32,35 +32,40 @@ async function handleSerial() {
       reader.releaseLock();
       break;
     }
-    // if (value) {
-    //   document.getElementById("section").style.visibility = "hidden";
-    // }
-    // document.getElementById("value").innerHTML = value;
     let trimmed_value = value.trim(); 
 
-    // grab the xyz positions from the value communicated to us
+    // grab the xyz positions, pot value & button state
+    // from the serial communication sent 
     let xyz = split(value, ',');
 
+    // to avoid invalid joystick inputs, only consider serial communications
+    // with at least 3 messages included inside of them 
     if(xyz.length > 2){
 
+      // assign our variables derived from serial comms to be later used 
       let x = parseInt(xyz[0]);
       let y = parseInt(xyz[1]);
-      let z = parseInt(xyz[2]);
-      // let buttonPressed = xyz[3];
+      let z = parseInt(xyz[2]); 
       let potValue = xyz[3];
       let selectPressed = xyz[4];
 
+      // if there's a button state value then grab it 
       if (selectPressed){
         selectPressed = selectPressed.trim();
       }
-
+      
+      // if there's any null values within the serial communications
+      // disregard this serial message 
       if (null in xyz || NaN in xyz){
         console.log("null value detected");
         continue;
       }
       
+      // Print out the parsed serial communication values 
       console.log(trimmed_value, x, y, z, potValue, selectPressed); 
 
+
+      // Algorithm used for mapping joystick values to snake's movement 
       // right: (4095, 1770)
       // left: (0, 1770)
       // up: (1770, 0)
@@ -85,38 +90,25 @@ async function handleSerial() {
         }
       }
 
-      
+      // Change the difficult of the game given potentiometer value 
       if (potValue){
         changeDifficulty(potValue);
       }
-
+      
+      // On button pressed, change the game state from either: start, paused 
+      // or restart 
       if (selectPressed == "SELECT" && xyz.length > 4){
         console.log("Select Button pressed");
         changeGameState();
       } 
-
-      // if (buttonPressed == "R"){
-      //   console.log("Right button pressed");
-      //   // raise the difficulty if Right button is pressed 
-      //   changeDifficulty(5);
-      // } else if(buttonPressed == "L"){
-      //   console.log("Left button pressed");
-      //   // lower difficulty if Left button is pressed 
-      //   changeDifficulty(-5); 
-      // }
 
     }
 
   }
 }
 
-const serialWrite = async () => {
-  let message = document.getElementById("message").value;
-  console.log("message: ", message);
-
-  await writer.write(message);
-};
-
+// Handle the functionality for disconnecting the serial communications
+// from the web app 
 const serialDisconnect = async() => {
   reader.cancel();
   await inputDone.catch(() => {});
@@ -124,5 +116,4 @@ const serialDisconnect = async() => {
   writer.close();
   await writableStreamClosed;
   await port.close();
-  // document.getElementById("content").style.visibility = "hidden";
 }
