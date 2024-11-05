@@ -30,7 +30,7 @@ The game is built with:
 
 ## Usage
 
-1. **Launch the Web Application**: Start the server to render the game in a browser by hitting the Go Live button on the bottom right of VS Code once you've 
+1. **Launch the Web Application**: Start the server to render the game in a browser by hitting the Go Live button on the bottom right of VS Code once you've finished the installation & setup. 
 2. **Control Shenron**: Use the joystick to navigate, and the button to interact with the menu.
 3. **Game Mechanics**: Shenron "eats" dragon balls to grow, and the goal is to collect as many as possible.
 
