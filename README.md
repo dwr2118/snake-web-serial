@@ -18,8 +18,9 @@ This project aimed to combine the retro snake game experience with the visual ae
 ## Installation and Setup
 
 1. **Dependencies**: Follow this [tutorial](https://www.youtube.com/watch?v=vj9nDja8ZdQ) to set up a web server for p5.js.
-2. **Hardware**: Connect a joystick, button, and potentiometer to the TTGO T-Display, housed in a 3D-printed enclosure. Also, I used 4 self-tapping screws to help construct a more rigid housing for the joystick & button. 
-3. **Serial Communication**: Ensure serial communication setup between the TTGO and the computer. Here’s the [GitHub repo](https://github.com/ttseng/coms3930-fall2024-serial/tree/main) that helped set this up.
+2. **Hardware**: Connect a joystick, button, and potentiometer to the TTGO T-Display, housed in a 3D-printed enclosure. Also, I used 4 self-tapping screws to help construct a more rigid housing for the joystick & button. Here is the necessary wiring schematic for the circuit: <img width="496" alt="image" src="https://github.com/user-attachments/assets/1dbef014-d056-44c3-920d-79fffa9a5a1b">
+
+4. **Serial Communication**: Ensure serial communication setup between the TTGO and the computer. Here’s the [GitHub repo](https://github.com/ttseng/coms3930-fall2024-serial/tree/main) that helped set this up.
 
 ## Code Overview
 
